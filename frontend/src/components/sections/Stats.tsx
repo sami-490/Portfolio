@@ -1,0 +1,1 @@
+export default function Stats() { return <section className="py-20 text-center"><h2>Stats</h2></section>; }

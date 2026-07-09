@@ -1,0 +1,1 @@
+export default function Skills() { return <div className="p-10"><h1>My Skills</h1></div>; }
