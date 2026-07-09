@@ -173,9 +173,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📸 Screenshots
+## 📸 Demo
 
-> Coming soon — deploy the project and add screenshots here!
+![Portfolio Demo](portfolio_demo.webp)
 
 ---
 
