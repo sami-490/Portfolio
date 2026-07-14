@@ -7,6 +7,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
@@ -23,6 +24,7 @@ This is a **professional, full-stack portfolio website** designed to showcase de
 
 - **Modern Frontend**: Next.js 16 with React 19, TypeScript, and TailwindCSS v4
 - **Robust Backend**: Express.js with JWT authentication and MongoDB
+- **Python Integration**: Data processing, automation, and backend scripts
 - **Secure Admin Dashboard**: Authenticated content management system
 - **Production-Ready**: Optimized for performance, SEO, and deployment
 
@@ -55,8 +57,14 @@ This is a **professional, full-stack portfolio website** designed to showcase de
 - SMTP configuration for sending emails
 - Professional email templates
 
+### 🐍 **Python Backend Support**
+- Data processing and analytics
+- Automated scripts and tasks
+- Machine learning model integration ready
+- File processing and batch operations
+
 ### ⚡ **Performance & Security**
-- Type-safe code with TypeScript
+- Type-safe code with TypeScript and Python typing
 - Optimized API routes
 - CORS protection
 - Environment variable management
@@ -80,11 +88,22 @@ This is a **professional, full-stack portfolio website** designed to showcase de
 |-----------|---------|
 | **Node.js** | JavaScript runtime |
 | **Express.js 5** | Web application framework |
+| **Python 3.9+** | Data processing, automation, scripts |
 | **MongoDB** | NoSQL database |
 | **Mongoose** | MongoDB object modeling |
 | **JWT** | Secure authentication |
 | **bcrypt.js** | Password hashing |
 | **Nodemailer** | Email sending (SMTP) |
+
+### Python Libraries (Optional)
+| Library | Use Case |
+|---------|----------|
+| **Flask/FastAPI** | Python REST API framework |
+| **Requests** | HTTP client for API calls |
+| **Pandas** | Data manipulation and analysis |
+| **NumPy** | Numerical computing |
+| **Pillow** | Image processing |
+| **python-dotenv** | Environment variable management |
 
 ---
 
@@ -158,6 +177,13 @@ Portfolio/
 │   ├── tsconfig.json
 │   └── .env.example
 │
+├── 📂 scripts/                     # Python Automation Scripts
+│   ├── data_processor.py           # Data processing utilities
+│   ├── image_optimizer.py          # Image optimization
+│   ├── backup.py                   # Database backup automation
+│   ├── requirements.txt            # Python dependencies
+│   └── config.py                   # Configuration utilities
+│
 ├── .gitignore
 ├── .prettierrc
 ├── LICENSE
@@ -169,9 +195,10 @@ Portfolio/
 1. **Frontend**: Next.js serves dynamic pages with React components styled using TailwindCSS
 2. **API Routes**: Next.js API routes handle authentication, form submissions, and file uploads
 3. **Backend**: Express.js REST API manages database operations and business logic
-4. **Database**: MongoDB stores user data, projects, blog posts, and authentication tokens
-5. **Authentication**: JWT tokens secure the admin dashboard and protected endpoints
-6. **Email**: Nodemailer sends contact form submissions and notifications
+4. **Python Scripts**: Automated data processing, image optimization, and batch operations
+5. **Database**: MongoDB stores user data, projects, blog posts, and authentication tokens
+6. **Authentication**: JWT tokens secure the admin dashboard and protected endpoints
+7. **Email**: Nodemailer sends contact form submissions and notifications
 
 ---
 
@@ -180,6 +207,7 @@ Portfolio/
 ### Prerequisites
 
 - **Node.js** v18+ ([Download](https://nodejs.org/))
+- **Python** 3.9+ ([Download](https://www.python.org/))
 - **npm** or **yarn** package manager
 - **MongoDB** instance (local or [MongoDB Atlas](https://www.mongodb.com/atlas) cloud)
 
@@ -237,7 +265,23 @@ npm start
 # Runs on http://localhost:5000
 ```
 
-### 3️⃣ Frontend Setup
+### 3️⃣ Python Setup
+
+```bash
+cd scripts
+python -m venv venv
+
+# Activate virtual environment
+# Linux/Mac:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 4️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -274,11 +318,29 @@ npm run dev
 # Opens http://localhost:3000
 ```
 
-### 4️⃣ Verify Installation
+### 5️⃣ Verify Installation
 
 - ✅ Frontend: http://localhost:3000
 - ✅ Backend API: http://localhost:5000/api
 - ✅ Admin Dashboard: http://localhost:3000/admin
+
+---
+
+## 🐍 Running Python Scripts
+
+```bash
+# Data processing
+python scripts/data_processor.py
+
+# Image optimization
+python scripts/image_optimizer.py
+
+# Database backup
+python scripts/backup.py
+
+# Run with arguments
+python scripts/data_processor.py --input data.json --output result.json
+```
 
 ---
 
@@ -318,6 +380,28 @@ npm run dev
 2. Add environment variables
 3. Railway auto-detects and deploys Node.js app
 
+### Python Scripts → GitHub Actions (Scheduled)
+
+Create `.github/workflows/python-tasks.yml`:
+
+```yaml
+name: Python Tasks
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/backup.py
+```
+
 ### Database → MongoDB Atlas
 
 1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas)
@@ -333,6 +417,7 @@ npm run dev
 ✅ **Environment Variables** — Sensitive data in `.env` files  
 ✅ **CORS Protection** — Cross-origin resource sharing configured  
 ✅ **Input Validation** — Server-side validation on all inputs  
+✅ **Python Security** — Type hints and input sanitization  
 ✅ **Error Handling** — Graceful error responses without exposing internals  
 
 ---
@@ -354,6 +439,14 @@ npm run lint      # Run ESLint
 npm start         # Start development server (localhost:5000)
 npm run build     # Compile TypeScript
 npm test          # Run tests (if configured)
+```
+
+### Python
+
+```bash
+python scripts/data_processor.py
+python scripts/image_optimizer.py
+python scripts/backup.py
 ```
 
 ---
@@ -439,6 +532,15 @@ kill -9 <PID>
 # Windows:
 netstat -ano | findstr :5000
 taskkill /PID <PID> /F
+```
+
+### Python Virtual Environment Issues
+```bash
+# Recreate virtual environment
+rm -rf scripts/venv
+python -m venv scripts/venv
+source scripts/venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r scripts/requirements.txt
 ```
 
 ---
