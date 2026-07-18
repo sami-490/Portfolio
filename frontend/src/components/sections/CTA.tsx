@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaPaperPlane } from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn, FaPaperPlane } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function CTA() {
   const [formData, setFormData] = useState({
@@ -44,128 +45,151 @@ export default function CTA() {
   };
 
   return (
-    <section id="contact" className="pt-20 flex flex-col justify-between min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 md:px-8 w-full flex-grow flex flex-col items-center">
+    <section id="contact" className="py-24 bg-inbio-bg border-t border-[#1a1c1e] font-montserrat">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
         
         {/* Header Section */}
-        <div className="flex flex-col items-center mb-12">
-          {/* Mouse Icon */}
-          <div className="w-8 h-12 rounded-full border-2 border-teal-400 flex justify-center pt-2 mb-2 relative">
-            <div className="w-1.5 h-3 bg-teal-400 rounded-full"></div>
-          </div>
-          {/* Dashed Line */}
-          <div className="w-px h-16 border-l-2 border-dashed border-teal-400/50 mb-6 relative">
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white rotate-45"></div>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-semibold text-teal-400 mb-2">Contact</h2>
-          
-          {/* Solid line with circles */}
-          <div className="flex items-center w-48 mb-6">
-            <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-            <div className="h-0.5 flex-grow bg-teal-400"></div>
-            <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-          </div>
-          
-          <p className="text-gray-400 font-mono text-sm tracking-wide text-center">
-            I&apos;m currently available for freelance work
+        <div className="flex flex-col items-center mb-16 text-center">
+          <p className="text-[13px] tracking-[3px] text-inbio-pink font-semibold uppercase mb-3">
+            Contact
           </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-inbio-text">
+            Contact With Me
+          </h2>
         </div>
 
-        {/* Send Me A Message Decorative Box */}
-        <div className="border-2 border-teal-400 rounded-xl px-12 py-4 mb-16 inline-block text-center shadow-[0_0_15px_rgba(45,212,191,0.2)]">
-          <h3 className="text-teal-400 text-2xl font-mono tracking-wider">Send Me A Message</h3>
-        </div>
+        {/* Contact Split Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+          
+          {/* Left Column: Personal Card */}
+          <div className="lg:col-span-5 shadow-inbio-raised p-6 rounded-2xl border border-[#1a1c1e] relative group flex flex-col h-full justify-between">
+            <div>
+              {/* Image Container */}
+              <div className="w-full aspect-16/10 rounded-xl overflow-hidden bg-[#1e2125] relative mb-6 shadow-inbio-sunken border border-[#1d2024]">
+                <img 
+                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" 
+                  alt="Contact Me"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
 
-        {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="w-full mb-20 flex flex-col items-center">
-          <div className="w-full flex flex-col md:flex-row gap-8 mb-10">
-            
-            {/* Name Field */}
-            <div className="flex-1 flex flex-col">
-              <label htmlFor="name" className="text-teal-400 text-sm font-medium mb-3">Your name *</label>
-              <input 
-                type="text" 
-                id="name"
-                name="name"
-                required
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                className="bg-transparent border-b border-gray-600 focus:border-teal-400 py-2 text-white outline-none transition-colors placeholder-gray-500 text-sm"
-              />
+              {/* Personal Details */}
+              <h3 className="text-2xl font-bold text-inbio-text mb-2">
+                Sami Ullah
+              </h3>
+              <p className="text-inbio-text-muted font-inter text-sm mb-6">
+                Full-Stack Developer
+              </p>
+              
+              <p className="text-inbio-text-muted font-inter text-sm leading-relaxed mb-8">
+                I am available for freelance work and full-time positions. Connect with me to discuss your project needs and bring your ideas to life!
+              </p>
+              
+              {/* Quick Details */}
+              <div className="space-y-4 font-inter text-sm text-inbio-text-muted mb-8">
+                <div className="flex items-center gap-3">
+                  <span className="text-inbio-text font-semibold font-montserrat uppercase tracking-wider text-[11px]">Email:</span>
+                  <a href="mailto:samiullahshafiq14@gmail.com" className="hover:text-inbio-pink transition-colors break-all">samiullahshafiq14@gmail.com</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-inbio-text font-semibold font-montserrat uppercase tracking-wider text-[11px]">Location:</span>
+                  <span>Pakistan</span>
+                </div>
+              </div>
             </div>
-            
-            {/* Email Field */}
-            <div className="flex-1 flex flex-col">
-              <label htmlFor="email" className="text-teal-400 text-sm font-medium mb-3">Your email *</label>
-              <input 
-                type="email" 
-                id="email"
-                name="email"
-                required
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                className="bg-transparent border-b border-gray-600 focus:border-teal-400 py-2 text-white outline-none transition-colors placeholder-gray-500 text-sm"
-              />
+
+            {/* Social Links */}
+            <div className="pt-6 border-t border-[#1a1c1e]">
+              <p className="text-[11px] tracking-[2px] text-inbio-text font-semibold uppercase mb-4">
+                Find with me
+              </p>
+              <div className="flex gap-4">
+                <Link 
+                  href="https://www.linkedin.com/in/sami-ullah-b5691b2b2/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-text hover:text-inbio-pink transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <FaLinkedinIn className="w-5 h-5" />
+                </Link>
+                <Link 
+                  href="https://github.com/sami-490" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-text hover:text-inbio-pink transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <FaGithub className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
           </div>
-          
-          {/* Message Field */}
-          <div className="w-full flex flex-col mb-12">
-            <label htmlFor="message" className="text-teal-400 text-sm font-medium mb-3">Your message *</label>
-            <input 
-              type="text"
-              id="message"
-              name="message"
-              required
-              placeholder="Enter your needs"
-              value={formData.message}
-              onChange={handleChange}
-              className="bg-transparent border-b border-gray-600 focus:border-teal-400 py-2 text-white outline-none transition-colors placeholder-gray-500 text-sm"
-            />
+
+          {/* Right Column: Contact Form */}
+          <div className="lg:col-span-7 shadow-inbio-raised p-8 rounded-2xl border border-[#1a1c1e]">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 font-inter">
+              
+              {/* Name Field */}
+              <div className="flex flex-col text-left">
+                <label htmlFor="name" className="text-inbio-text font-montserrat uppercase tracking-wider text-[11px] font-semibold mb-3">Your name</label>
+                <input 
+                  type="text" 
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="shadow-inbio-sunken border border-transparent rounded-lg px-4 py-3.5 text-inbio-text outline-none focus:border-inbio-pink placeholder-inbio-text-muted/40 text-sm w-full"
+                />
+              </div>
+              
+              {/* Email Field */}
+              <div className="flex flex-col text-left">
+                <label htmlFor="email" className="text-inbio-text font-montserrat uppercase tracking-wider text-[11px] font-semibold mb-3">Your email</label>
+                <input 
+                  type="email" 
+                  id="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="shadow-inbio-sunken border border-transparent rounded-lg px-4 py-3.5 text-inbio-text outline-none focus:border-inbio-pink placeholder-inbio-text-muted/40 text-sm w-full"
+                />
+              </div>
+              
+              {/* Message Field */}
+              <div className="flex flex-col text-left mb-4">
+                <label htmlFor="message" className="text-inbio-text font-montserrat uppercase tracking-wider text-[11px] font-semibold mb-3">Your message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder="Tell me about your project or needs..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="shadow-inbio-sunken border border-transparent rounded-lg px-4 py-3.5 text-inbio-text outline-none focus:border-inbio-pink placeholder-inbio-text-muted/40 text-sm w-full resize-none"
+                />
+              </div>
+              
+              {/* Submit Button */}
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="shadow-inbio-raised text-inbio-pink font-bold py-4 rounded-lg hover:bg-linear-to-r hover:from-inbio-pink hover:to-inbio-pink-hover hover:text-white transition-all duration-300 flex items-center justify-center gap-2 w-full font-montserrat uppercase tracking-widest text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Sending...' : (
+                  <>
+                    Send Message <FaPaperPlane />
+                  </>
+                )}
+              </button>
+            </form>
           </div>
-          
-          {/* Submit Button */}
-          <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="bg-teal-400 hover:bg-teal-300 text-black font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center gap-2 w-56 shadow-[0_0_15px_rgba(45,212,191,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? 'Sending...' : (
-              <>
-                Send Message <FaPaperPlane />
-              </>
-            )}
-          </button>
-        </form>
+
+        </div>
       </div>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-gray-800 bg-[#16181b] py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-400 text-sm">
-        <div className="text-center md:text-left">
-          © 2025 Sami Ullah. All rights reserved.
-        </div>
-        
-        <div className="flex gap-6 items-center">
-          <a href="#" className="hover:text-teal-400 transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-teal-400 transition-colors">Terms & Conditions</a>
-        </div>
-        
-        <div className="flex gap-4 items-center">
-          <a href="#" className="w-8 h-8 rounded-full bg-teal-400/20 text-teal-400 flex items-center justify-center hover:bg-teal-400 hover:text-black transition-colors">
-            <FaGithub />
-          </a>
-          <a href="#" className="w-8 h-8 rounded-full bg-teal-400/20 text-teal-400 flex items-center justify-center hover:bg-teal-400 hover:text-black transition-colors">
-            <FaLinkedin />
-          </a>
-        </div>
-        
-        <div className="text-center md:text-right">
-          Design By <a href="#" className="text-teal-400 hover:underline font-medium">Sami Ullah</a>
-        </div>
-      </footer>
     </section>
   );
 }

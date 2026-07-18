@@ -14,6 +14,9 @@
 
 [**Live Demo**](#-live-demo) • [**Get Started**](#-getting-started) • [**Architecture**](#-architecture) • [**License**](#-license)
 
+### [🔴 LIVE DEMO: Click Here to View Project](https://github.com/sami-490/Portfolio)
+
+*(Note: Update the URL above once you deploy to Vercel)*
 </div>
 
 ---

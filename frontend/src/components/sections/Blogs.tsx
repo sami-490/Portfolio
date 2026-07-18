@@ -1,170 +1,144 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { FaRegClock } from 'react-icons/fa';
+
+const blogPosts = [
+  {
+    id: 1,
+    image: "/blog_1.png",
+    category: "QUOTE",
+    readTime: "4 min read",
+    title: "The Easiest Way to Become a Successful Writer and Authors."
+  },
+  {
+    id: 2,
+    image: "/blog_2.png",
+    category: "TECHNICIAN",
+    readTime: "4 min read",
+    title: "The Quickest Way to Deliver Your Message? Make It Visual."
+  },
+  {
+    id: 3,
+    image: "/blog_3.png",
+    category: "DEVELOPMENT",
+    readTime: "4 min read",
+    title: "Why We Don't Have Technical Interviews for Technical Roles at Buffer."
+  }
+];
 
 export default function Blogs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [activeBlog, setActiveBlog] = useState(blogPosts[0]);
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    
-    setStatus('loading');
-    try {
-      const response = await fetch('http://localhost:5000/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      
-      if (response.ok) {
-        setStatus('success');
-        setEmail('');
-        setTimeout(() => setIsModalOpen(false), 3000);
-      } else {
-        setStatus('error');
-      }
-    } catch (error) {
-      console.error(error);
-      setStatus('error');
-    }
+  const openModal = (blog: typeof blogPosts[0]) => {
+    setActiveBlog(blog);
+    setIsModalOpen(true);
   };
 
   return (
-    <section id="blogs" className="py-20 relative">
-      <div className="max-w-5xl mx-auto px-4 md:px-8">
+    <section id="blog" className="py-24 bg-inbio-bg border-t border-[#1a1c1e] relative">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 font-montserrat">
         
         {/* Header Section */}
-        <div className="flex flex-col items-center mb-12">
-          {/* Mouse Icon */}
-          <div className="w-8 h-12 rounded-full border-2 border-teal-400 flex justify-center pt-2 mb-2 relative">
-            <div className="w-1.5 h-3 bg-teal-400 rounded-full"></div>
-          </div>
-          {/* Dashed Line */}
-          <div className="w-px h-16 border-l-2 border-dashed border-teal-400/50 mb-6 relative">
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white rotate-45"></div>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-semibold text-teal-400 mb-2">Blogs</h2>
-          
-          {/* Solid line with circles */}
-          <div className="flex items-center w-48 mb-6">
-            <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-            <div className="h-0.5 flex-grow bg-teal-400"></div>
-            <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-          </div>
-          
-          <p className="text-gray-400 font-mono text-sm tracking-wide text-center">
-            My thoughts on technology and business, welcome to subscribe
+        <div className="flex flex-col items-center mb-16 text-center">
+          <p className="text-[13px] tracking-[3px] text-inbio-pink font-semibold uppercase mb-3">
+            VISIT MY BLOG AND KEEP YOUR FEEDBACK
           </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-inbio-text mb-4">
+            My Blog
+          </h2>
         </div>
 
-        <div className="w-full h-px bg-gray-700 mb-12"></div>
-
-        {/* Blog Post Item */}
-        <div className="flex flex-col md:flex-row gap-8 items-start mb-12">
-          {/* Image */}
-          <div className="w-full md:w-1/3 aspect-[4/3] relative rounded-lg overflow-hidden shrink-0">
-            <Image 
-              src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" 
-              alt="Web Developer"
-              fill
-              className="object-cover"
-            />
-          </div>
-          
-          {/* Content */}
-          <div className="w-full md:w-2/3 flex flex-col pt-2">
-            <h3 className="text-2xl md:text-3xl text-teal-400 font-medium mb-4">
-              What does it take to become a web developer?
-            </h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6">
-              Web development, also known as website development, encompasses a variety of tasks and processes involved in creating websites for the internet...
-            </p>
-            <a href="/blogs_document.pdf" target="_blank" rel="noopener noreferrer" className="text-teal-400 text-sm hover:underline mb-8 inline-block w-max">
-              Read More &gt;&gt;
-            </a>
-            
-            {/* Meta Info */}
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-gray-400">
-              <span className="bg-gray-600/50 text-gray-300 px-3 py-1 rounded-full border border-gray-600">
-                Web Developer
-              </span>
-              <div className="flex items-center gap-1">
-                <span className="font-bold text-white">Text</span> Sami Ullah
+        {/* Blog Post Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <div 
+              key={post.id}
+              onClick={() => openModal(post)}
+              className="group cursor-pointer shadow-inbio-raised p-6 rounded-3xl border border-[#1a1c1e] flex flex-col hover:-translate-y-2 transition-all duration-300"
+            >
+              {/* Image Container */}
+              <div className="w-full aspect-[4/3] relative rounded-2xl overflow-hidden bg-[#1e2125] mb-6 shadow-inbio-sunken border border-[#1d2024]">
+                <Image 
+                  src={post.image} 
+                  alt={post.title}
+                  fill
+                  className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  unoptimized
+                />
               </div>
-              <div className="flex items-center gap-1">
-                <span className="font-bold text-white">Date</span> 1 Jan 2025
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="font-bold text-white">Read</span> 1 Min
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full h-px bg-gray-700 mb-12"></div>
-
-        {/* Buttons */}
-        <div className="flex justify-center gap-6">
-          <a href="/blogs_document.pdf" target="_blank" rel="noopener noreferrer" className="bg-teal-400 hover:bg-teal-300 text-black font-semibold px-8 py-3 rounded-full transition-colors w-40 flex items-center justify-center">
-            View More
-          </a>
-          <button 
-            onClick={() => setIsModalOpen(true)}
-            className="bg-transparent hover:bg-gray-800 border-2 border-teal-400 text-white font-semibold px-8 py-3 rounded-full transition-colors w-40"
-          >
-            Subscribe
-          </button>
-        </div>
-
-        {/* Subscribe Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-            <div className="bg-[#1a1d21] p-8 rounded-2xl border border-gray-700 w-full max-w-md shadow-2xl relative">
-              <button 
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white text-xl"
-              >
-                &times;
-              </button>
               
-              <h3 className="text-2xl font-bold text-teal-400 mb-2">Subscribe to my Newsletter</h3>
-              <p className="text-gray-400 text-sm mb-6">Get the latest articles directly in your inbox.</p>
-              
-              {status === 'success' ? (
-                <div className="bg-green-500/20 text-green-400 p-4 rounded-lg text-center font-medium">
-                  Thanks for subscribing! Check your email.
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex flex-col gap-4">
-                  <input 
-                    type="email" 
-                    required
-                    placeholder="Enter your email address..."
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[#24272c] border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-teal-400"
-                  />
-                  <button 
-                    type="submit" 
-                    disabled={status === 'loading'}
-                    className="bg-teal-400 text-black font-bold py-3 rounded-lg hover:bg-teal-300 disabled:opacity-50 transition-colors"
-                  >
-                    {status === 'loading' ? 'Subscribing...' : 'Subscribe Now'}
-                  </button>
-                  {status === 'error' && (
-                    <p className="text-red-400 text-sm text-center">Failed to subscribe. Please try again.</p>
-                  )}
-                </form>
-              )}
+              {/* Meta Info */}
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-inbio-pink text-[11px] font-bold tracking-widest uppercase">
+                  {post.category}
+                </span>
+                <span className="flex items-center gap-1.5 text-inbio-text-muted text-xs font-inter font-medium">
+                  <FaRegClock className="w-3.5 h-3.5" />
+                  {post.readTime}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-[22px] text-inbio-text font-bold leading-snug group-hover:text-inbio-pink transition-colors duration-300">
+                {post.title}
+              </h3>
             </div>
-          </div>
-        )}
+          ))}
+        </div>
 
       </div>
+
+      {/* Details Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm font-montserrat">
+          <div className="bg-[#212428] w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative border border-[#1a1c1e]">
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-[#212428] shadow-inbio-raised rounded-full flex items-center justify-center text-inbio-pink hover:bg-inbio-pink hover:text-white transition-colors duration-300 border border-[#1a1c1e]"
+            >
+              ✕
+            </button>
+
+            {/* Left side Image */}
+            <div className="w-full md:w-1/2 relative h-64 md:h-auto">
+              <Image 
+                src={activeBlog.image} 
+                alt={activeBlog.title}
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </div>
+
+            {/* Right side Content */}
+            <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-inbio-pink text-xs font-bold tracking-widest uppercase">
+                  {activeBlog.category}
+                </span>
+                <span className="text-inbio-text-muted text-xs font-inter flex items-center gap-1">
+                  <FaRegClock /> {activeBlog.readTime}
+                </span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-inbio-text mb-6">
+                {activeBlog.title}
+              </h3>
+              <p className="text-inbio-text-muted font-inter text-sm leading-relaxed mb-6">
+                This is a placeholder for the full article content. In a complete application, this would contain the full text of the blog post, discussing the topic in depth and providing valuable insights to the reader.
+              </p>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="self-start text-inbio-pink text-sm font-bold uppercase tracking-wider hover:underline"
+              >
+                Close Window &gt;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -1,109 +1,167 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FaGithub, FaLinkedinIn, FaReact, FaNodeJs, FaDownload } from 'react-icons/fa';
+import { SiNextdotjs } from 'react-icons/si';
 
 export default function Hero() {
+  const [text, setText] = useState('');
+  const [loopNum, setLoopNum] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [delta, setDelta] = useState(150);
+  
+  useEffect(() => {
+    const toRotate = ["Full-Stack Developer.", "Python Programmer.", "Web App Specialist."];
+    
+    const tick = () => {
+      const i = loopNum % toRotate.length;
+      const fullText = toRotate[i];
+      const updatedText = isDeleting 
+        ? fullText.substring(0, text.length - 1) 
+        : fullText.substring(0, text.length + 1);
+      
+      setText(updatedText);
+      
+      if (isDeleting) {
+        setDelta(75);
+      }
+      
+      if (!isDeleting && updatedText === fullText) {
+        setIsDeleting(true);
+        setDelta(2000); // pause at full text
+      } else if (isDeleting && updatedText === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setDelta(150); // speed up next word startup
+      }
+    };
+
+    const ticker = setInterval(() => {
+      tick();
+    }, delta);
+
+    return () => clearInterval(ticker);
+  }, [text, delta, loopNum, isDeleting]);
+
   return (
-    <section className="min-h-screen flex items-center justify-center py-20 px-4 md:px-8">
-      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+    <section id="home" className="min-h-screen flex items-center justify-center py-28 px-4 md:px-8 bg-inbio-bg">
+      <div className="max-w-7xl w-full flex flex-col-reverse lg:flex-row gap-12 lg:gap-16 items-center">
         
-        {/* Left Profile Card */}
-        <div className="lg:col-span-4 xl:col-span-3 flex flex-col items-center bg-[#2d3137] rounded-tl-[80px] rounded-br-[80px] rounded-tr-xl rounded-bl-xl p-8 border-l-4 border-teal-400 shadow-lg">
-          <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-teal-400 mb-4 bg-[#1a1d21] flex items-center justify-center">
-            {/* The user will need to place their photo as profile.png in the public folder */}
-            <Image 
-              src="/profile.jpg" 
-              alt="Sami Ullah" 
-              width={128} 
-              height={128} 
-              className="object-cover object-top w-full h-full"
-              unoptimized
-            />
-          </div>
-          <h2 className="text-2xl font-bold mb-1">Sami Ullah</h2>
-          <p className="text-gray-400 text-sm mb-6">Full-stack developer</p>
-          
-          <div className="w-full text-sm text-gray-300 space-y-4 mb-8">
-            <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 shrink-0 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-              <span className="text-[13px] break-all">samiullahshafiq14@gmail.com</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 shrink-0 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-              <span>Pakistan</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 shrink-0 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
-              <div className="flex gap-2">
-                <Link href="https://www.linkedin.com/in/sami-ullah-b5691b2b2" target="_blank" className="hover:text-teal-400 transition-colors">LinkedIn</Link>
-                <span className="text-gray-500">/</span>
-                <Link href="https://github.com/sami-490" target="_blank" className="hover:text-teal-400 transition-colors">GitHub</Link>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
-            {['HTML5', 'CSS3', 'Bootstrap', 'React', 'Node.js', 'Next.js', 'Express.js', 'Python', 'WordPress', 'Shopify'].map(lang => (
-              <span key={lang} className="bg-[#1a1d21] border border-teal-500/30 text-teal-400 text-xs px-3 py-1.5 rounded-full">
-                {lang}
-              </span>
-            ))}
-          </div>
-
-          <a 
-            href="/cv.pdf" 
-            download="Sami_Ullah_CV.pdf"
-            className="w-full bg-white text-gray-900 font-bold py-3 rounded-full flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
-          >
-            Download CV
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-          </a>
-        </div>
-
-        {/* Center Content */}
-        <div className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center px-2 lg:px-8 relative">
-          
-          {/* Large Background Text */}
-          <div className="absolute -top-48 left-0 w-full text-center pointer-events-none hidden lg:block">
-            <span className="text-[7rem] xl:text-[9rem] font-bold text-teal-400 drop-shadow-[0_0_30px_rgba(45,212,191,0.4)] tracking-wide">
-              Developer
+        {/* Left Side: Content */}
+        <div className="flex-1 w-full lg:pr-8 font-montserrat">
+          <p className="text-[13px] tracking-[3px] text-inbio-pink font-semibold uppercase mb-4">
+            Welcome to my world
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-inbio-text leading-[1.1] mb-6">
+            Hi, I&apos;m <span className="text-inbio-pink">Sami Ullah</span><br />
+            <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-inbio-text/80 block mt-3 min-h-[40px] md:min-h-[48px]">
+              a <span className="border-r-2 border-inbio-pink pr-1 text-inbio-text">{text}</span>
             </span>
-          </div>
-          
-          <p className="text-4xl lg:text-5xl font-light mb-2 relative z-10 mt-16 lg:mt-0">Hey</p>
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight relative z-10">
-            I&apos;m <span className="text-teal-400">Sami Ullah</span>,<br/>
-            Full-Stack Developer
           </h1>
-          <p className="text-gray-400 text-lg max-w-xl mb-10 leading-relaxed relative z-10">
+          <p className="text-inbio-text-muted font-inter text-base md:text-lg leading-relaxed mb-10 max-w-xl">
             I help businesses grow by crafting amazing web experiences. If you&apos;re looking for a developer that likes to get stuff done, let&apos;s connect.
           </p>
           
-          <div className="relative z-10">
-            <Link href="https://www.linkedin.com/in/sami-ullah-b5691b2b2" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-teal-400 font-semibold hover:text-teal-300 transition-colors text-xl">
+          {/* Action Buttons: CV Download & Let's Talk */}
+          <div className="flex flex-wrap gap-5 mb-14 font-montserrat">
+            <a 
+              href="/cv.pdf" 
+              download="Sami_Ullah_CV.pdf"
+              className="inline-flex items-center gap-3 text-inbio-pink text-sm font-bold px-7 py-4 rounded-md tracking-wider transition-all duration-300 uppercase shadow-inbio-raised hover:bg-linear-to-r hover:from-inbio-pink hover:to-inbio-pink-hover hover:text-white"
+            >
+              Download CV <FaDownload />
+            </a>
+            
+            <Link 
+              href="https://www.linkedin.com/in/sami-ullah-b5691b2b2/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 text-inbio-pink text-sm font-bold px-7 py-4 rounded-md tracking-wider transition-all duration-300 uppercase shadow-inbio-raised hover:bg-linear-to-r hover:from-inbio-pink hover:to-inbio-pink-hover hover:text-white"
+            >
               Let&apos;s Talk
-              <span className="bg-[#1a1d21] p-3 rounded-full shadow-lg border border-teal-500/20">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </span>
             </Link>
+          </div>
+          
+          {/* Socials & Key Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-[#1a1c1e]">
+            {/* Socials */}
+            <div>
+              <p className="text-[12px] tracking-[2px] text-inbio-text font-semibold uppercase mb-4">
+                Find with me
+              </p>
+              <div className="flex gap-4">
+                <Link 
+                  href="https://www.linkedin.com/in/sami-ullah-b5691b2b2/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-[50px] h-[50px] rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-text hover:text-inbio-pink transition-all duration-300 hover:-translate-y-1"
+                >
+                  <FaLinkedinIn className="w-5 h-5" />
+                </Link>
+                <Link 
+                  href="https://github.com/sami-490" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-[50px] h-[50px] rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-text hover:text-inbio-pink transition-all duration-300 hover:-translate-y-1"
+                >
+                  <FaGithub className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Best Skills */}
+            <div>
+              <p className="text-[12px] tracking-[2px] text-inbio-text font-semibold uppercase mb-4">
+                Best skill on
+              </p>
+              <div className="flex gap-4">
+                <div className="w-[50px] h-[50px] rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-pink">
+                  <FaReact className="w-5 h-5" />
+                </div>
+                <div className="w-[50px] h-[50px] rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-pink">
+                  <SiNextdotjs className="w-5 h-5" />
+                </div>
+                <div className="w-[50px] h-[50px] rounded-lg shadow-inbio-raised flex items-center justify-center text-inbio-pink">
+                  <FaNodeJs className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Right Stats Card */}
-        <div className="lg:col-span-2 flex flex-col gap-10 bg-[#1a1d21] py-12 px-8 rounded-[40px] items-center justify-center self-center shadow-lg border border-gray-800 w-full max-w-sm mx-auto lg:max-w-none">
-          <div className="flex flex-col items-center gap-3 text-center w-full">
-            <span className="text-5xl font-bold text-teal-400 tracking-tight">8</span>
-            <span className="text-gray-400 text-sm leading-relaxed font-medium uppercase tracking-wider">Programming<br/>Languages</span>
+        {/* Right Side: Profile Image Frame with Stats */}
+        <div className="w-full lg:w-[420px] shrink-0 flex flex-col gap-8">
+          <div className="shadow-inbio-raised p-6 rounded-2xl border border-[#1a1c1e] relative group">
+            <div className="w-full aspect-4/5 rounded-xl overflow-hidden bg-[#1e2125] relative">
+              <Image 
+                src="/profile.jpg" 
+                alt="Sami Ullah" 
+                fill
+                priority
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                unoptimized
+              />
+            </div>
           </div>
-          <div className="flex flex-col items-center gap-3 text-center w-full">
-            <span className="text-5xl font-bold text-teal-400 tracking-tight">10</span>
-            <span className="text-gray-400 text-sm leading-relaxed font-medium uppercase tracking-wider">Development<br/>Tools</span>
-          </div>
-          <div className="flex flex-col items-center gap-3 text-center w-full">
-            <span className="text-5xl font-bold text-teal-400 tracking-tight">2</span>
-            <span className="text-gray-400 text-sm leading-relaxed font-medium uppercase tracking-wider">Years of<br/>Experience</span>
+
+          {/* Quick Stats Grid */}
+          <div className="grid grid-cols-3 gap-4 font-montserrat">
+            <div className="shadow-inbio-raised p-4 rounded-xl text-center border border-[#1a1c1e]">
+              <span className="block text-2xl font-bold text-inbio-pink mb-1">9</span>
+              <span className="text-[9px] tracking-[1px] text-inbio-text-muted uppercase font-bold block">Languages</span>
+            </div>
+            <div className="shadow-inbio-raised p-4 rounded-xl text-center border border-[#1a1c1e]">
+              <span className="block text-2xl font-bold text-inbio-pink mb-1">10</span>
+              <span className="text-[9px] tracking-[1px] text-inbio-text-muted uppercase font-bold block">Tools</span>
+            </div>
+            <div className="shadow-inbio-raised p-4 rounded-xl text-center border border-[#1a1c1e]">
+              <span className="block text-2xl font-bold text-inbio-pink mb-1">2+</span>
+              <span className="text-[9px] tracking-[1px] text-inbio-text-muted uppercase font-bold block">Years Exp</span>
+            </div>
           </div>
         </div>
-        
+
       </div>
     </section>
   );

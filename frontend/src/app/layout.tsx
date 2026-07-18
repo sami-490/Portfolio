@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'A modern full-stack portfolio',
+  title: 'Sami Ullah | Portfolio',
+  description: 'Full-stack developer portfolio',
 };
 
 export default function RootLayout({
@@ -18,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-[#24272c] bg-topography text-white`} suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-[#212428] text-[#c4cfde]" suppressHydrationWarning>
         <Navbar />
         <main className="grow">{children}</main>
         <Footer />

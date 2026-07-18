@@ -10,22 +10,22 @@ export default function Navbar() {
   if (pathname.startsWith('/admin')) return null;
 
   const navLinks = [
-    { name: 'HOME', href: '/' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'SERVICES', href: '#services' },
-    { name: 'PROJECTS', href: '#projects' },
-    { name: 'BLOGS', href: '#blogs' },
-    { name: 'SKILLS', href: '#skills' },
-    { name: 'PROCESS', href: '#process' },
-    { name: 'CERTIFICATES', href: '#certificates' },
+    { name: 'HOME', href: '/#home' },
+    { name: 'SERVICES', href: '/#services' },
+    { name: 'PORTFOLIO', href: '/portfolio' },
+    { name: 'RESUME', href: '/#resume' },
+    { name: 'CLIENTS', href: '/#clients' },
+    { name: 'TESTIMONIAL', href: '/#testimonials' },
+    { name: 'BLOG', href: '/#blog' },
+    { name: 'CONTACT', href: '/#contact' },
   ];
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#16181b]/90 backdrop-blur-md border-b border-gray-800">
-      <nav className="px-6 py-4 flex justify-between items-center max-w-7xl mx-auto w-full">
+    <header className="fixed top-0 w-full z-50 bg-[#212428]/90 backdrop-blur-md border-b border-[#1a1c1e] shadow-lg">
+      <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto w-full font-montserrat">
         {/* Logo */}
-        <Link href="/" className="text-3xl font-light tracking-tight hover:opacity-80 transition-opacity flex items-baseline z-50">
-          𝕊𝔸𝕄𝕀
+        <Link href="/" className="text-2xl font-bold tracking-wider hover:opacity-80 transition-opacity flex items-baseline z-50 text-[#c4cfde] group">
+          SAMI<span className="text-inbio-pink group-hover:animate-pulse">.</span>
         </Link>
         
         {/* Desktop Navigation Links */}
@@ -34,7 +34,7 @@ export default function Navbar() {
             <Link 
               key={link.name} 
               href={link.href}
-              className="text-gray-300 hover:text-teal-400 text-xs xl:text-sm tracking-widest font-medium transition-colors"
+              className="text-[#c4cfde] hover:text-inbio-pink text-[13px] tracking-widest font-semibold transition-all duration-300 uppercase"
             >
               {link.name}
             </Link>
@@ -44,54 +44,54 @@ export default function Navbar() {
         {/* Let's Talk Button & Hamburger */}
         <div className="flex items-center gap-4 z-50">
           <Link 
-            href="https://www.linkedin.com/in/sami-ullah-b5691b2b2" 
+            href="https://www.linkedin.com/in/sami-ullah-b5691b2b2/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hidden sm:block bg-teal-400 hover:bg-teal-300 text-black text-xs md:text-sm font-bold px-4 md:px-6 py-2 md:py-2.5 rounded-sm tracking-widest transition-colors shadow-[0_0_15px_rgba(45,212,191,0.3)]"
+            className="hidden sm:inline-flex bg-transparent text-inbio-pink text-xs font-bold px-6 py-3 rounded-md tracking-wider transition-all duration-300 uppercase shadow-inbio-raised hover:bg-linear-to-r hover:from-inbio-pink hover:to-inbio-pink-hover hover:text-white"
           >
             LET&apos;S TALK
           </Link>
           
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Toggle */}
           <button 
-            className="lg:hidden text-teal-400 p-2 focus:outline-none"
+            className="lg:hidden w-11 h-11 rounded-full shadow-inbio-raised flex items-center justify-center text-[#c4cfde] hover:text-inbio-pink transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+            {isMobileMenuOpen ? '✕' : '☰'}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-[#16181b]/95 backdrop-blur-xl border-b border-gray-800 shadow-2xl py-4 flex flex-col items-center gap-4">
+      {/* Mobile Menu */}
+      <div 
+        className={`fixed inset-0 bg-[#212428] z-40 transition-transform duration-500 ease-in-out lg:hidden ${
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="flex flex-col h-full px-6 py-24 overflow-y-auto">
           {navLinks.map((link) => (
             <Link 
               key={link.name} 
               href={link.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-gray-300 hover:text-teal-400 text-sm tracking-widest font-medium transition-colors py-2 w-full text-center"
+              className="text-[#c4cfde] hover:text-inbio-pink text-sm tracking-widest font-semibold py-4 border-b border-[#1a1c1e] transition-colors uppercase"
             >
               {link.name}
             </Link>
           ))}
+          
           <Link 
-            href="https://www.linkedin.com/in/sami-ullah-b5691b2b2" 
+            href="https://www.linkedin.com/in/sami-ullah-b5691b2b2/" 
             target="_blank" 
             rel="noopener noreferrer"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="sm:hidden bg-teal-400 hover:bg-teal-300 text-black text-sm font-bold px-6 py-2.5 rounded-sm tracking-widest transition-colors shadow-[0_0_15px_rgba(45,212,191,0.3)] mt-2"
+            className="mt-8 text-center bg-transparent text-inbio-pink text-xs font-bold px-6 py-4 rounded-md tracking-wider transition-all duration-300 uppercase shadow-inbio-raised hover:bg-linear-to-r hover:from-inbio-pink hover:to-inbio-pink-hover hover:text-white"
           >
             LET&apos;S TALK
           </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 }
